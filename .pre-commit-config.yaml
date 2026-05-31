@@ -1,7 +1,7 @@
 repos:
   # General hygiene
   - repo: https://github.com/pre-commit/pre-commit-hooks
-    rev: v4.6.0
+    rev: v6.0.0
     hooks:
       - id: trailing-whitespace
       - id: end-of-file-fixer
@@ -17,7 +17,7 @@ repos:
 
   # Python formatting
   - repo: https://github.com/psf/black
-    rev: 24.4.2
+    rev: 26.5.1
     hooks:
       - id: black
         language_version: python3
@@ -25,7 +25,7 @@ repos:
 
   # Python import sorting
   - repo: https://github.com/PyCQA/isort
-    rev: 5.13.2
+    rev: 9.0.0a3
     hooks:
       - id: isort
         args: ["--profile", "black"]
@@ -33,7 +33,7 @@ repos:
 
   # Python linting
   - repo: https://github.com/PyCQA/flake8
-    rev: 7.1.0
+    rev: 7.3.0
     hooks:
       - id: flake8
         args: ["--max-line-length=88", "--extend-ignore=E203,W503"]
@@ -41,7 +41,7 @@ repos:
 
   # Security scanning
   - repo: https://github.com/PyCQA/bandit
-    rev: 1.7.9
+    rev: 1.9.4
     hooks:
       - id: bandit
         args: ["-c", "pyproject.toml"]
@@ -50,7 +50,7 @@ repos:
 
   # Conventional commit messages
   - repo: https://github.com/compilerla/conventional-pre-commit
-    rev: v3.4.0
+    rev: v4.4.0
     hooks:
       - id: conventional-pre-commit
         stages: [commit-msg]
