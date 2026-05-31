@@ -1,6 +1,6 @@
 """ETL Pipeline for InsightFlow - Retail Analytics Processing"""
 import pandas as pd
-from sqlalchemy import create_engine, text
+from sqlalchemy import create_engine
 from config import DATABASE_URL
 
 engine = create_engine(DATABASE_URL)
@@ -53,7 +53,9 @@ def load_dim_date(df):
 
 def load_dim_product(df):
     """Populate product dimension."""
-    products = df[["product"]].drop_duplicates().rename(columns={"product": "product_name"})
+    products = (
+        df[["product"]].drop_duplicates().rename(columns={"product": "product_name"})
+    )
     # TODO: Add category classification logic
     products["category"] = "General"
     products["unit_price"] = df.groupby("product")["unit_price"].mean().values
