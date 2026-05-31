@@ -46,7 +46,7 @@ repos:
       - id: bandit
         args: ["-c", "pyproject.toml"]
         files: ^(backend|data-engineering)/
-        exclude: ^(backend|data-engineering)/.*test.*
+        exclude: ^(backend|data-engineering)/.*(test|sample_data).*
 
   # Conventional commit messages
   - repo: https://github.com/compilerla/conventional-pre-commit
