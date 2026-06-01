@@ -47,8 +47,6 @@ repos:
         files: ^(backend|data-engineering|qa)/
         args: ["--config-file", "pyproject.toml"]
         additional_dependencies:
-          - django-stubs[compatible-mypy]
-          - djangorestframework-stubs
           - types-requests
 
   # Security scanning

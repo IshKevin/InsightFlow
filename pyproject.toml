@@ -19,10 +19,6 @@ ignore_missing_imports = true
 warn_return_any = true
 warn_unused_configs = true
 exclude = ["migrations/", "\\.venv/", "venv/"]
-plugins = ["mypy_django_plugin.main"]
-
-[tool.django-stubs]
-django_settings_module = "insightflow.settings"
 
 [tool.bandit]
 exclude_dirs = ["tests", "qa"]

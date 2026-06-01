@@ -34,7 +34,7 @@ jobs:
         run: pre-commit run --all-files
 
       - name: Install type stubs for mypy
-        run: pip install mypy django-stubs[compatible-mypy] djangorestframework-stubs types-requests
+        run: pip install mypy types-requests
 
       - name: Type check (mypy)
         run: mypy backend/apps backend/insightflow data-engineering qa/api-tests --config-file pyproject.toml
