@@ -1,12 +1,13 @@
 from rest_framework import generics, status
-from rest_framework.response import Response
 from rest_framework.permissions import IsAuthenticated
+from rest_framework.response import Response
+
 from .models import DataSource
 from .serializers import DataSourceSerializer
 
 
 class DataSourceListCreateView(generics.ListCreateAPIView):
-    queryset = DataSource.objects.select_related('created_by').all()
+    queryset = DataSource.objects.select_related("created_by").all()
     serializer_class = DataSourceSerializer
     permission_classes = [IsAuthenticated]
 
@@ -18,6 +19,6 @@ class DataSourceListCreateView(generics.ListCreateAPIView):
 
 
 class DataSourceDetailView(generics.RetrieveUpdateDestroyAPIView):
-    queryset = DataSource.objects.select_related('created_by').all()
+    queryset = DataSource.objects.select_related("created_by").all()
     serializer_class = DataSourceSerializer
     permission_classes = [IsAuthenticated]

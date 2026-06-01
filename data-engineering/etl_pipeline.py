@@ -1,7 +1,8 @@
 """ETL Pipeline for InsightFlow - Retail Analytics Processing"""
+
 import pandas as pd
-from sqlalchemy import create_engine
 from config import DATABASE_URL
+from sqlalchemy import create_engine
 
 engine = create_engine(DATABASE_URL)
 
@@ -38,16 +39,22 @@ def load_dim_date(df):
     dim_records = []
     for d in dates:
         dt = pd.Timestamp(d)
-        dim_records.append({
-            "full_date": d,
-            "year": dt.year, "quarter": (dt.month - 1) // 3 + 1,
-            "month": dt.month, "day": dt.day,
-            "day_of_week": dt.dayofweek, "week_of_year": dt.isocalendar()[1],
-            "month_name": dt.strftime("%B"), "day_name": dt.strftime("%A"),
-            "is_weekend": dt.dayofweek >= 5,
-        })
+        dim_records.append(
+            {
+                "full_date": d,
+                "year": dt.year,
+                "quarter": (dt.month - 1) // 3 + 1,
+                "month": dt.month,
+                "day": dt.day,
+                "day_of_week": dt.dayofweek,
+                "week_of_year": dt.isocalendar()[1],
+                "month_name": dt.strftime("%B"),
+                "day_name": dt.strftime("%A"),
+                "is_weekend": dt.dayofweek >= 5,
+            }
+        )
     dim_df = pd.DataFrame(dim_records)
-    dim_df.to_sql("dim_date", engine, if_exists="replace", index=False)
+    dim_df.to_sql("dim_date", engine, if_exists="append", index=False)
     print(f"Loaded {len(dim_df)} dates into dim_date")
 
 
@@ -59,7 +66,7 @@ def load_dim_product(df):
     # TODO: Add category classification logic
     products["category"] = "General"
     products["unit_price"] = df.groupby("product")["unit_price"].mean().values
-    products.to_sql("dim_product", engine, if_exists="replace", index=False)
+    products.to_sql("dim_product", engine, if_exists="append", index=False)
     print(f"Loaded {len(products)} products into dim_product")
 
 
@@ -69,7 +76,7 @@ def load_dim_region(df):
     regions["country"] = regions["region_name"].apply(
         lambda r: r.split("-")[0] if "-" in r else "Unknown"
     )
-    regions.to_sql("dim_region", engine, if_exists="replace", index=False)
+    regions.to_sql("dim_region", engine, if_exists="append", index=False)
     print(f"Loaded {len(regions)} regions into dim_region")
 
 

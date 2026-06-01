@@ -1,6 +1,7 @@
 """Create Star Schema for InsightFlow Retail Analytics"""
-from sqlalchemy import create_engine, text
+
 from config import DATABASE_URL
+from sqlalchemy import create_engine, text
 
 engine = create_engine(DATABASE_URL)
 
@@ -54,14 +55,16 @@ CREATE TABLE IF NOT EXISTS fact_sales (
 -- TODO: Add dim_channel for online vs in-store tracking
 """
 
+
 def create_schema():
     with engine.connect() as conn:
-        for stmt in SCHEMA_SQL.split(';'):
+        for stmt in SCHEMA_SQL.split(";"):
             stmt = stmt.strip()
-            if stmt and not stmt.startswith('--'):
+            if stmt and not stmt.startswith("--"):
                 conn.execute(text(stmt))
         conn.commit()
     print("Star schema created successfully!")
+
 
 if __name__ == "__main__":
     create_schema()
