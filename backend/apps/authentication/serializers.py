@@ -1,5 +1,6 @@
-from rest_framework import serializers
 from django.contrib.auth import authenticate
+from rest_framework import serializers
+
 from .models import User
 
 
@@ -8,17 +9,17 @@ class RegisterSerializer(serializers.ModelSerializer):
 
     class Meta:
         model = User
-        fields = ('email', 'first_name', 'last_name', 'password', 'role')
-        extra_kwargs = {'role': {'required': False}}
+        fields = ("email", "first_name", "last_name", "password", "role")
+        extra_kwargs = {"role": {"required": False}}
 
     def create(self, validated_data):
         user = User.objects.create_user(
-            username=validated_data['email'],
-            email=validated_data['email'],
-            first_name=validated_data.get('first_name', ''),
-            last_name=validated_data.get('last_name', ''),
-            password=validated_data['password'],
-            role=validated_data.get('role', 'USER'),
+            username=validated_data["email"],
+            email=validated_data["email"],
+            first_name=validated_data.get("first_name", ""),
+            last_name=validated_data.get("last_name", ""),
+            password=validated_data["password"],
+            role=validated_data.get("role", "USER"),
         )
         return user
 
@@ -28,16 +29,16 @@ class LoginSerializer(serializers.Serializer):
     password = serializers.CharField(write_only=True)
 
     def validate(self, data):
-        user = authenticate(username=data['email'], password=data['password'])
+        user = authenticate(username=data["email"], password=data["password"])
         if not user:
-            raise serializers.ValidationError('Invalid credentials.')
+            raise serializers.ValidationError("Invalid credentials.")
         if not user.is_active:
-            raise serializers.ValidationError('Account is disabled.')
-        data['user'] = user
+            raise serializers.ValidationError("Account is disabled.")
+        data["user"] = user
         return data
 
 
 class UserSerializer(serializers.ModelSerializer):
     class Meta:
         model = User
-        fields = ('id', 'email', 'first_name', 'last_name', 'role')
+        fields = ("id", "email", "first_name", "last_name", "role")

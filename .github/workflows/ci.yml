@@ -33,6 +33,12 @@ jobs:
       - name: Run pre-commit hooks
         run: pre-commit run --all-files
 
+      - name: Install type stubs for mypy
+        run: pip install mypy types-requests
+
+      - name: Type check (mypy)
+        run: mypy backend/apps backend/insightflow data-engineering qa/api-tests --config-file pyproject.toml
+
   backend:
     name: Backend tests
     runs-on: ubuntu-latest

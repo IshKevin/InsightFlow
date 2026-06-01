@@ -1,6 +1,6 @@
 [tool.black]
 line-length = 88
-target-version = ["py310", "py311", "py312"]
+target-version = ["py311"]
 exclude = '''
 /(
     \.git
@@ -12,6 +12,13 @@ exclude = '''
 [tool.isort]
 profile = "black"
 skip = ["migrations"]
+
+[tool.mypy]
+python_version = "3.11"
+ignore_missing_imports = true
+warn_return_any = true
+warn_unused_configs = true
+exclude = ["migrations/", "\\.venv/", "venv/"]
 
 [tool.bandit]
 exclude_dirs = ["tests", "qa"]
