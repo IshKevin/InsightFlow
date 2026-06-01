@@ -21,7 +21,7 @@ warn_unused_configs = true
 exclude = ["migrations/", "\\.venv/", "venv/"]
 plugins = ["mypy_django_plugin.main"]
 
-[mypy.plugins.django-stubs]
+[tool.django-stubs]
 django_settings_module = "insightflow.settings"
 
 [tool.bandit]
