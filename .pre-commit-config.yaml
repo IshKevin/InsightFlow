@@ -22,6 +22,7 @@ repos:
       - id: black
         language_version: python3
         files: ^(backend|data-engineering|qa)/
+        exclude: migrations/
 
   # Python import sorting
   - repo: https://github.com/PyCQA/isort
@@ -30,6 +31,7 @@ repos:
       - id: isort
         args: ["--profile", "black"]
         files: ^(backend|data-engineering|qa)/
+        exclude: migrations/
 
   # Python linting
   - repo: https://github.com/PyCQA/flake8
@@ -38,6 +40,7 @@ repos:
       - id: flake8
         args: ["--max-line-length=88", "--extend-ignore=E203,W503"]
         files: ^(backend|data-engineering|qa)/
+        exclude: migrations/
 
   # Static type checking
   - repo: https://github.com/pre-commit/mirrors-mypy

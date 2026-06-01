@@ -32,6 +32,8 @@ jobs:
 
       - name: Run pre-commit hooks
         run: pre-commit run --all-files
+        env:
+          SKIP: no-commit-to-branch
 
       - name: Install type stubs for mypy
         run: pip install mypy types-requests
@@ -148,6 +150,7 @@ jobs:
         working-directory: backend
         run: |
           python manage.py migrate --noinput
+          python manage.py seed_data
           python manage.py runserver &
           sleep 5
 
